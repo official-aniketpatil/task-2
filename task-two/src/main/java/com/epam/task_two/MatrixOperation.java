@@ -6,15 +6,14 @@ import com.epam.model.Matrix;
 class MatrixOperationHelper{
 	public void runApplication() {
 		Input input = new Input();
-		Matrix matrix = null;
 		try {
-		  matrix = input.getSquareMatrix();
+		    Matrix matrix = input.getSquareMatrix();
+		    MatrixOperation matrixOperation = new MatrixOperation(matrix);
+			matrixOperation.printRowSum();
+			matrixOperation.printColumnAndDiagonalSum();
 		} catch(IllegalMatrixException illegalMatrixException) {
 			System.out.println(illegalMatrixException.getMessage());
 		}
-		MatrixOperation matrixOperation = new MatrixOperation(matrix);
-		matrixOperation.printRowSum();
-		matrixOperation.printColumnAndDiagonalSum();
 	}
 }
 public class MatrixOperation {
