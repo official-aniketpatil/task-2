@@ -2,27 +2,44 @@ package com.epam.task_two;
 
 import java.util.Scanner;
 
-public class SumAndAverage {
-
-	private static int[] getInput(){
-		Scanner scanner = new Scanner(System.in);	
-		System.out.println("Enter number of elements in array");
-		int length = scanner.nextInt();
-		int[] elements = new int[length];
+class Helper {
+	
+	public void runApplication() {
+		Input input = new Input();
+		int[] elements = input.getArray();
+		SumAndAverage sumAndAverage = new SumAndAverage(elements);
 		
-		for(int i = 0; i < length; i++) {
-			elements[i] = scanner.nextInt();
-		}
-		
-		scanner.close();
-		return elements;
+		System.out.println("sum of Array is "+sumAndAverage.getSum());
+		System.out.println("Average of Array is "+sumAndAverage.getAverage());
 	}
-	private static float getAverage(int[] elements) {
+	
+}
+public class SumAndAverage {
+    private int[] elements;
+    private int sum;
+    private double average;
+     
+    public SumAndAverage(int[] elements){
+    	this.elements = elements;
+    	this.sum = this.calculateSum();
+    	this.average = this.calculateAverage();
+    }
+     
+    public int[] getElements() {
+    	return elements;
+    } 
+    public int getSum() {
+		return sum;
+	}
+	public double getAverage() {
+		return average;
+	}
+	public float calculateAverage() {
 	   	int length = elements.length;
 	   	
-	   	return getSum(elements) / length;
+	   	return getSum() / length;
 	}
-	private static int getSum(int[] elements) {
+	public int calculateSum() {
 		int sum=0;
 		for(int element : elements) {
 			sum += element;
@@ -30,10 +47,8 @@ public class SumAndAverage {
 		return sum;
 	}
 	public static void main(String[] args) {
-	 
-		int[] elements = getInput();
-		System.out.println("sum of Array is "+getSum(elements));
-		System.out.println("Average of Array is "+getAverage(elements));
+		Helper helper =  new Helper();
+		helper.runApplication();
 	}	
 
 }

@@ -2,9 +2,14 @@ package com.epam.task_two;
 
 import java.util.Scanner;
 
+import com.epam.model.Feet;
+import com.epam.model.Inch;
+import com.epam.model.Meter;
+import com.epam.utility.ConversionUtility;
+
 public class UnitConversion {
 
-	private static void printMenu() {
+	public void printMenu() {
 		System.out.println("Enter your choice");
 		System.out.println("1) Inch to Feet");
 		System.out.println("2) Inch to Meter");
@@ -15,51 +20,33 @@ public class UnitConversion {
 		System.out.println("0) Exit");
 		
 	}
-	private static double inchToFeet(double inch) {
-		return  0.0833 * inch;
-	}
-    private static double inchToMeter(double inch) {
-    	return 0.0254 * inch;
-	}
-    private static double feetToInch(double feet) {
-		return 12 * feet;
-	}
-    private static double feetToMeter(double feet) {
-		return feet / 3.281;
-	}
-    private static double meterToInch(double meter) {
-		return 39.37 * meter;
-	}
-    private static double meterToFeet(double meter) {
-		return 3.281 * meter;
-	}
-    private static void printResult(int choice, double value) {
+    public void printResult(int choice, double value) {
     	
     	switch(choice) {
     	case 1:
-    	    System.out.println(value+" Inch = "+inchToFeet(value)+"Feet");
+    	    System.out.println(value+" Inch = "+ConversionUtility.toFeet(new Inch(value))+"Feet");
     	    break;
     	case 2:
-    		System.out.println(value+"Inch = "+inchToMeter(value)+" Meter");
+    		System.out.println(value+"Inch = "+ConversionUtility.toMeter(new Inch(value))+" Meter");
     		break;
     	case 3:
-    		System.out.println(value+" Feet = "+feetToInch(value)+" Inch");
+    		System.out.println(value+" Feet = "+ConversionUtility.toInch(new Feet(value))+" Inch");
     		break;
     	case 4:
-    		System.out.println(value+" Feet = "+feetToMeter(value)+" Meter");
+    		System.out.println(value+" Feet = "+ConversionUtility.toMeter(new Feet(value))+" Meter");
     		break;
     	case 5:
-    		System.out.println(value+" Meter = "+meterToInch(value)+" Inch");
+    		System.out.println(value+" Meter = "+ConversionUtility.toInch(new Meter(value))+" Inch");
     		break;
     	case 6:
-    		System.out.println(value+" Meter = "+meterToFeet(value)+" Feet");
+    		System.out.println(value+" Meter = "+ConversionUtility.toFeet(new Meter(value))+" Feet");
     		break;
     	default:
     		System.out.println("Enter a valid choice");
     	}
     }
-	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
+    public  void helperMain() {
+    	Scanner scanner = new Scanner(System.in);
         
 		while(true) {
         	printMenu();
@@ -73,6 +60,10 @@ public class UnitConversion {
         
         System.out.println("Program terminated !!");
         scanner.close();
+    }
+	public static void main(String[] args) {
+		UnitConversion unitConversion = new UnitConversion();
+		unitConversion.helperMain();
 	}
 
 }

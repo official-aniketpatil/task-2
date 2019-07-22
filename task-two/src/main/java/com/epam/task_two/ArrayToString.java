@@ -1,36 +1,56 @@
 package com.epam.task_two;
 
-import java.util.Scanner;
-
-public class ArrayToString {
-
-	private static int[] getInput(){
-		Scanner scanner = new Scanner(System.in);	
-		System.out.println("Enter number of elements in array");
-		int length = scanner.nextInt();
-		int[] elements = new int[length];
-		
-		for(int i = 0; i < length; i++) {
-			elements[i] = scanner.nextInt();
+class ArrayToStringHelper {
+	ArrayToString arrayToString;
+	
+	public void runApplication() {
+		Input input = new Input();
+		int[] elements = input.getArray();
+		System.out.println("press 1 if you wants to specify separator otherwise press 0");
+		int separatorRequired = input.getInteger();
+		if(separatorRequired == 1) {
+			System.out.println("please Enter separator");
+			String separator = input.getString();
+			arrayToString = new ArrayToString(elements, separator);
+		} else {
+			arrayToString = new ArrayToString(elements);
 		}
-		
-		scanner.close();
-		return elements;
+		System.out.println(arrayToString.join());
 	}
-	private static String arrayToString(int[] elements) {
-		StringBuilder stringBuilder = new StringBuilder();
-		int length = elements.length;
+}
+public class ArrayToString {
+	
+	private int[] elements;
+	private int length;
+	private StringBuilder stringBuilder;
+	private String separator;
+	
+	ArrayToString(int[] elements){
+		this.elements = elements;
+		this.length = elements.length;
+		this.stringBuilder = new StringBuilder();
+		this.separator = ",";
+	}
+	ArrayToString(int[] elements, String separator){
+		this(elements);
+		this.separator = separator;
 		
+	}
+	public void setSeparator(String separator) {
+		this.separator = separator;
+	}
+	public String join() {
 		for(int i = 0; i < length; i++) {
 			stringBuilder.append(elements[i]);
 			if(i != length-1) {
-				stringBuilder.append(", ");
+				stringBuilder.append(this.separator+" ");
 			}
 		}
 		return stringBuilder.toString();
 	}
 	public static void main(String[] args) {
-		int[] elements = getInput();
-		System.out.println(arrayToString(elements));
+		 
+		ArrayToStringHelper arrayToStringHelper = new ArrayToStringHelper();
+		arrayToStringHelper.runApplication();
 	}
 }
